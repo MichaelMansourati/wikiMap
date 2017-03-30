@@ -34,12 +34,18 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 }
 
 $(document).ready(function() {
+  $( '.navbav a .users').click(function(event) {
+      
+  })
 
+  $('.navbar a#btnMaps').click(function(ev) {
+    ev.preventDefault();
+    $.ajax('/lists').done(function(data) {
+      $sidebar = $('nav.sidebar');
+      data.forEach((el) => {
+        $sidebar.append($(`<p>${el.name}</p>`));
+      })
+    })
+  })
 });
-
-$( '.nav-link .users').click(function(event) {
-    //show userslist
-})
-
-//etc etc
 
