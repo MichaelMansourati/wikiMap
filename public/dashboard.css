@@ -60,6 +60,7 @@ h1 {
   height: 100%;
   width: 100%;
   padding: 0;
+  padding-bottom: 50px;
 }
 /*
  * Dashboard
@@ -77,5 +78,4 @@ h1 {
 
 #map {
   height: 100%;
-  margin-left: -15px;
 }
