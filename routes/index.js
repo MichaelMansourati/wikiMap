@@ -25,6 +25,13 @@ module.exports = function(knex) {
 		}
 	});
 
+	router.post('/logout',(req,res) => {
+		if (req.session) {
+			req.session = null;
+		}
+		res.redirect('/homepage.html');
+	});
+
 	router.get('/register',(req,res) => {
 		res.render('register');
 	});
@@ -42,6 +49,24 @@ module.exports = function(knex) {
 			res.redirect('/register');
 		}
 		
+	});
+
+	router.get('/lists',(req,res) => {
+		DataHelpers.getLists((err,listsObj) => {
+			res.json(listsObj);
+		})
+	});
+
+	router.get('/lists/:id/locations',(req,res) => {
+		DataHelpers.getLocationsByListId(req.params.id,(err,locations) => {
+			res.send(locations);
+		})
+	});
+
+	router.get('/lists/:list_id/locations/:id/images',(req,res) => {
+		DataHelpers.getAllLocationImages(req.params.id,(err,imagesArr) => {
+			res.json(imagesArr);
+		})
 	});
 	
 	return router;

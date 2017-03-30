@@ -10,15 +10,8 @@ const cookieSession = require('cookie-session');
 const index = require('./routes/index');
 const users = require('./routes/users');
 const env = require('dotenv').config();
-const knex = require('knex')({
-	client:'postgresql',
-	connection: {
-		host: process.env.DB_HOST,
-		user: process.env.DB_USER,
-		password: process.env.DB_PASS,
-		database: process.env.DB_NAME
-	}
-})
+const dbsettings = require('./lib/DbSettings')
+const knex = require('knex')(dbsettings);
 
 const app = express();
 
