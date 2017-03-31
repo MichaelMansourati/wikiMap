@@ -1,0 +1,21 @@
+<html>
+	<head>
+		<% include partials/_head %>
+	</head>
+	<body>
+		<main>
+			<form action="/register" class="form-group" method="POST">
+				<label for="name">Name</label>
+				<input type="text" class="form-control" name="name">
+				<label for="email">Email</label>
+				<input type="text" class="form-control" name="email">
+				<label for="password">New password</label>
+				<input type="password" name="password" class="form-control">
+				<label for="password">New password (again)</label>
+				<input type="password" name="password2" class="form-control">
+				<input type="submit" value="Register now" class="btn btn-success">
+				<a href="/login">Already registered? Click here</a>
+			</form>
+		</main>
+	</body>
+</html>
