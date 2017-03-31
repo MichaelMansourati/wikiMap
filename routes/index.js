@@ -5,6 +5,15 @@ const bcrypt = require('bcrypt');
 module.exports = function(knex) {
 	const DataHelpers = require('../lib/DataHelpers')(knex);
 
+	router.get('/',(req,res) => {
+		if (req.session) {
+			res.render('index',{ name: req.session.name });	
+		} else {
+			res.render('index');
+		}
+
+	})
+
 	router.get('/login',(req,res) => {
 		res.render('login');
 	});
@@ -17,7 +26,7 @@ module.exports = function(knex) {
 					req.session.user_id = userObj.id;
 					req.session.email = userObj.email;
 					req.session.name = userObj.name;
-					res.redirect('/homepage.html');
+					res.redirect('/');
 				} else {
 					res.redirect('/login');
 				}
@@ -26,10 +35,8 @@ module.exports = function(knex) {
 	});
 
 	router.post('/logout',(req,res) => {
-		if (req.session) {
-			req.session = null;
-		}
-		res.redirect('/homepage.html');
+		req.session = null;
+		res.redirect('/');
 	});
 
 	router.get('/register',(req,res) => {
@@ -50,17 +57,33 @@ module.exports = function(knex) {
 		}
 		
 	});
-
+	// Get all lists
 	router.get('/lists',(req,res) => {
 		DataHelpers.getLists((err,listsObj) => {
 			res.json(listsObj);
 		})
 	});
 
+	// Create a new list
+	router.post('/lists',(req,res) => {
+		if (req.session.name) {
+			DataHelpers.insertList(req.body.listname,req.body.description,req.session.user_id,function(err,response) {
+				res.send(response);
+			})
+		} else {
+			console.log(req.session);
+			res.send('Only logged in users can create lists');
+		}
+	});
+
 	router.get('/lists/:id/locations',(req,res) => {
 		DataHelpers.getLocationsByListId(req.params.id,(err,locations) => {
 			res.send(locations);
 		})
+	});
+
+	router.post('/lists/:id/locations',(req,res) => {
+		
 	});
 
 	router.get('/lists/:list_id/locations/:id/images',(req,res) => {
