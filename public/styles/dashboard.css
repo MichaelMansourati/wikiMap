@@ -14,7 +14,7 @@ body {
   top: 51px;
   bottom: 0;
   left: 0;
-  z-index: 1000;
+  z-index: 2;
   padding: 20px;
   overflow-x: hidden;
   overflow-y: auto;
@@ -23,16 +23,30 @@ body {
   border-left: 1px solid #eee;
   padding-left: 0;
   padding-right: 0; }
-  .sidebar .nav {
-    margin-bottom: 20px; }
   .sidebar .nav-item {
     width: 100%; }
+  .sidebar .nav-item + .nav-item {
+    margin-left: 0; }
+  .sidebar .nav-link {
+    border-radius: 0; }
 
-.sidebar .nav-item + .nav-item {
-  margin-left: 0; }
-
-.sidebar .nav-link {
-  border-radius: 0; }
+div.maps-sidebar {
+  width: 100%; }
+  div.maps-sidebar header {
+    width: 50%;
+    margin: auto; }
+  div.maps-sidebar div.map-item {
+    background-color: red;
+    margin-top: 10px;
+    cursor: pointer;
+    /*background-color: #292b2c;*/
+    background-color: white;
+    color: #292b2c;
+    /*height:2em;*/ }
+    div.maps-sidebar div.map-item div.map-subitem {
+      display: none; }
+    div.maps-sidebar div.map-item .map-title {
+      font-size: 20px; }
 
 .mapDiv {
   position: fixed;

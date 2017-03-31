@@ -81,9 +81,16 @@ module.exports = function(knex) {
 			res.send(locations);
 		})
 	});
-
-	router.post('/lists/:id/locations',(req,res) => {
-		
+	// Create new location in a list
+	router.post('/lists/:list_id/locations',(req,res) => {
+		if (!req.params.list_id || !req.body.title || !req.body.latitude || !req.body.longitude) {
+			res.redirect('/');
+		}
+		DataHelpers.insertLocation(req.body.title,req.body.description,
+			req.body.latitude,req.body.longitude,req.params.list_id,function(err,response) {
+				if (err) throw err;
+				res.send('OK!');
+			})
 	});
 
 	router.get('/lists/:list_id/locations/:id/images',(req,res) => {
